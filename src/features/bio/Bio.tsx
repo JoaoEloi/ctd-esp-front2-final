@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { NomesSimpsons, INFO_SIMPSONS } from "./constants";
 import styles from "./styles.module.css";
+import {
+  Wrapper,
+  BioImage,
+  BioNome,
+  BioDescription,
+  ContainerBotoes,
+  Button,
+} from "./styled";
 
 const Bio = () => {
   const [bioActive, setBioActive] = useState(INFO_SIMPSONS[NomesSimpsons.BART]);
@@ -10,7 +18,7 @@ const Bio = () => {
 
   const criarBotoes = () => {
     return Object.keys(INFO_SIMPSONS).map((nome: string) => (
-      <button
+      <Button
         key={nome as string}
         onClick={() => onClick(nome as NomesSimpsons)}
         className={
@@ -20,27 +28,28 @@ const Bio = () => {
         }
       >
         {nome}
-      </button>
+      </Button>
     ));
   };
 
   return (
-    <div className={styles.bioContainer}>
-      <div className={styles.containerBotoes}>{criarBotoes()}</div>
+    <Wrapper>
+      <ContainerBotoes>{criarBotoes()}</ContainerBotoes>
       <div>
         <div>
-          <img
+          <BioImage
             src={bioActive.image}
             alt={bioActive.nome}
             className={styles.bioImage}
           />
         </div>
+
         <div>
-          <h3 className={styles.bioNome}>{bioActive.nome}</h3>
-          <p className={styles.bioDescription}>{bioActive.description}</p>
+          <BioNome>{bioActive.nome}</BioNome>
+          <BioDescription>{bioActive.description}</BioDescription>
         </div>
       </div>
-    </div>
+    </Wrapper>
   );
 };
 

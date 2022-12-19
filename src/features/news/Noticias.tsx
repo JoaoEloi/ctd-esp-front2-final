@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { AssinarImage, CloseButton as Close } from "../../assets";
 import { obterNoticias } from "./fakeRest";
+import { UpperCase } from "./UpperCaseLetters";
+import { INoticiasNormalizadas } from "./INoticiasNormalizadas";
 import {
   CloseButton,
   CardModal,
@@ -20,16 +22,6 @@ import {
   BotaoAssinar,
   ContainerTexto,
 } from "./styled";
-
-export interface INoticiasNormalizadas {
-  id: number;
-  titulo: string;
-  description: string;
-  date: number | string;
-  premium: boolean;
-  image: string;
-  descriptionCurto?: string;
-}
 
 const Noticias = () => {
   const [noticias, setNoticias] = useState<INoticiasNormalizadas[]>([]);
@@ -69,6 +61,10 @@ const Noticias = () => {
     obterInformacoes();
   }, []);
 
+  const onClick = () => {
+    setModal(null);
+  };
+
   return (
     <ContainerNoticias>
       <TituloNoticias>Noticias dos Simpsons</TituloNoticias>
@@ -88,7 +84,7 @@ const Noticias = () => {
           modal.premium ? (
             <ContainerModal>
               <CardModal>
-                <CloseButton onClick={() => setModal(null)}>
+                <CloseButton onClick={onClick}>
                   <img src={Close} alt="close-button" />
                 </CloseButton>
                 <ImageModal src={AssinarImage} alt="mr-burns-excelent" />
@@ -114,7 +110,7 @@ const Noticias = () => {
           ) : (
             <ContainerModal>
               <CardModal>
-                <CloseButton onClick={() => setModal(null)}>
+                <CloseButton onClick={onClick}>
                   <img src={Close} alt="close-button" />
                 </CloseButton>
                 <ImageModal src={modal.image} alt="news-image" />
